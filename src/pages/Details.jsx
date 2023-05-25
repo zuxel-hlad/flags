@@ -1,21 +1,34 @@
 import { useParams, useNavigate } from 'react-router-dom';
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { IoArrowBack } from 'react-icons/io5';
-import { searchByCountry } from '../api';
-import axios from 'axios';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+    fetchCountryByName,
+    fetchBorderCountries,
+} from '../redux/slices/asyncActions';
+import {
+    oneCountrySelector,
+    oneCountryBorderCountriesSelector,
+} from '../redux/selectors';
 import Button from '../components/button/Button';
 import Info from '../components/info/Info';
 
 const Details = () => {
-    const [country, setCountry] = useState(null);
+    const country = useSelector(oneCountrySelector);
+    const borderCountries = useSelector(oneCountryBorderCountriesSelector);
     const { name } = useParams();
     const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     useEffect(() => {
-        axios
-            .get(searchByCountry(name))
-            .then(({ data }) => setCountry(data[0]));
-    }, [name]);
+        dispatch(fetchCountryByName(name));
+    }, [name, dispatch]);
+
+    useEffect(() => {
+        if (country && country.borders) {
+            dispatch(fetchBorderCountries(country.borders));
+        }
+    }, [country, dispatch]);
 
     return (
         <div>
@@ -23,7 +36,13 @@ const Details = () => {
                 <IoArrowBack />
                 Back
             </Button>
-            {country && <Info {...country} navigate={navigate} />}
+            {country && (
+                <Info
+                    {...country}
+                    borderCountries={borderCountries}
+                    navigate={navigate}
+                />
+            )}
         </div>
     );
 };

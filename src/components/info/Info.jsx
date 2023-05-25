@@ -1,7 +1,4 @@
-import { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import axios from 'axios';
-import { filterByCode } from '../../api';
 
 const Info = ({
     name,
@@ -13,10 +10,9 @@ const Info = ({
     tld,
     currencies,
     languages,
-    borders = [],
+    borderCountries,
     navigate,
 }) => {
-    const [neighbors, setNeighbors] = useState([]);
     const renderNatiVeName =
         Object.keys(name.nativeName).map(n => name.nativeName[n])[
             Object.keys(name.nativeName).length - 1
@@ -34,15 +30,21 @@ const Info = ({
         <span key={idx}>{currencies[c].name}&nbsp;</span>
     ));
 
-    useEffect(() => {
-        axios
-            .get(filterByCode(borders))
-            .then(({ data }) => setNeighbors(data.map(n => n.name.common)));
-    }, []);
+    const borderCountriesList = !borderCountries?.length ? (
+        <span>There is no border countries</span>
+    ) : (
+        <TagGroup>
+            {borderCountries.map((b, idx) => (
+                <Tag key={idx} onClick={() => navigate(`/country/${b}`)}>
+                    {b}
+                </Tag>
+            ))}
+        </TagGroup>
+    );
 
     return (
         <Wrapper>
-            <InfoImage src={flags.png} alt={name.common} />
+            <InfoImage src={flags.svg} alt={name.common} />
             <div>
                 <InfoTitle>{name.common}</InfoTitle>
                 <ListGroup>
@@ -85,20 +87,7 @@ const Info = ({
                 </ListGroup>
                 <Meta>
                     <b>Border Countries</b>
-                    {!borders.length ? (
-                        <span>There is no border countries</span>
-                    ) : (
-                        <TagGroup>
-                            {neighbors.map(b => (
-                                <Tag
-                                    key={b}
-                                    onClick={() => navigate(`/country/${b}`)}
-                                >
-                                    {b}
-                                </Tag>
-                            ))}
-                        </TagGroup>
-                    )}
+                    {borderCountriesList}
                 </Meta>
             </div>
         </Wrapper>

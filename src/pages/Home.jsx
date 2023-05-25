@@ -1,63 +1,39 @@
-import { useState, useEffect } from 'react';
-import { ALL_COUNTRIES } from '../api';
+import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchAllCountries } from '../redux/slices/asyncActions.js';
+import { setRegion, setSearch } from '../redux/slices/allCountriesSlice';
+import {
+    allCountriesSelector,
+    allCountriesLoadingStatusSelector,
+    allCountriesRegionSelector,
+    allCountriesSearchSelector,
+} from '../redux/selectors';
+
 import Controls from '../components/controls/Controls';
 import List from '../components/list/List';
 import Card from '../components/card/Card';
 
-const Home = ({ countries, setCountries }) => {
-    const [search, setSearch] = useState('');
-    const [region, setRegion] = useState(null);
+const Home = () => {
+    const countries = useSelector(allCountriesSelector);
+    const region = useSelector(allCountriesRegionSelector);
+    const search = useSelector(allCountriesSearchSelector);
+    const countriesLoadingStatus = useSelector(
+        allCountriesLoadingStatusSelector
+    );
+    const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    const filteredAndSearchedCountries = (searchVal, regionVal) => {
-        let data = [...countries];
-
-        if (searchVal) {
-            return data.filter(c =>
-                c.name.common.toLowerCase().includes(searchVal.toLowerCase())
-            );
-        } else if (regionVal) {
-            return data.filter(c => c.region.includes(regionVal));
-        } else {
-            return data;
-        }
-    };
     useEffect(() => {
-        if (!countries.length) {
-            axios.get(ALL_COUNTRIES).then(({ data }) => setCountries(data));
-        }
+        dispatch(fetchAllCountries());
     }, []);
 
-    const countriesCards = filteredAndSearchedCountries(
-        search,
-        region?.value || ''
-    ).map((c, idx) => {
-        const countryInfo = {
-            ...c,
-            name: c.name.common,
-            img: c.flags.png,
-            info: [
-                {
-                    title: 'Population',
-                    description: c.population.toLocaleString(),
-                },
-                {
-                    title: 'Region',
-                    description: c.region,
-                },
-                {
-                    title: 'Capital',
-                    description: c.capital,
-                },
-            ],
-        };
+    const countriesList = countries.map((country, idx) => {
         return (
             <Card
-                key={c.name.common}
-                {...countryInfo}
-                onClick={() => navigate(`country/${c.name.common}`)}
+                key={idx}
+                {...country}
+                onClick={() => navigate(`country/${country.name}`)}
                 tabIndex={idx + 1}
             />
         );
@@ -67,11 +43,11 @@ const Home = ({ countries, setCountries }) => {
         <section>
             <Controls
                 region={region}
-                setRegion={setRegion}
+                setRegion={regionVal => dispatch(setRegion(regionVal))}
                 search={search}
-                setSearch={setSearch}
+                setSearch={searchVal => dispatch(setSearch(searchVal))}
             />
-            <List>{countriesCards}</List>
+            <List>{countriesList}</List>
         </section>
     );
 };
