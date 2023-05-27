@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import LazyImage from '../lazy-image/LazyImage';
 
 const Info = ({
     name,
@@ -10,7 +11,7 @@ const Info = ({
     tld,
     currencies,
     languages,
-    borderCountries,
+    neighbours,
     navigate,
 }) => {
     const renderNatiVeName =
@@ -19,7 +20,7 @@ const Info = ({
         ].official || '-';
 
     const renderTopLevelDomains =
-        tld.map((d, idx) => <span key={idx}>{d}</span>) || '-';
+        tld?.map((d, idx) => <span key={idx}>{d}</span>) || '-';
 
     const renderLanguages =
         Object.keys(languages).map((l, idx) => (
@@ -29,14 +30,16 @@ const Info = ({
     const renderCurrencies = Object.keys(currencies).map((c, idx) => (
         <span key={idx}>{currencies[c].name}&nbsp;</span>
     ));
-
-    const borderCountriesList = !borderCountries?.length ? (
-        <span>There is no border countries</span>
-    ) : (
+    const neighboursList = (
         <TagGroup>
-            {borderCountries.map((b, idx) => (
-                <Tag key={idx} onClick={() => navigate(`/country/${b}`)}>
-                    {b}
+            {neighbours.map((neighbour, idx) => (
+                <Tag
+                    onClick={() =>
+                        navigate(`/country/${neighbour.name.common}`)
+                    }
+                    key={idx}
+                >
+                    {neighbour.name.common}
                 </Tag>
             ))}
         </TagGroup>
@@ -44,7 +47,14 @@ const Info = ({
 
     return (
         <Wrapper>
-            <InfoImage src={flags.svg} alt={name.common} />
+            <InfoImageWrapper>
+                <LazyImage
+                    src={flags.svg}
+                    alt={name.common}
+                    width="100%"
+                    height="100%"
+                />
+            </InfoImageWrapper>
             <div>
                 <InfoTitle>{name.common}</InfoTitle>
                 <ListGroup>
@@ -86,8 +96,12 @@ const Info = ({
                     </List>
                 </ListGroup>
                 <Meta>
-                    <b>Border Countries</b>
-                    {borderCountriesList}
+                    <b>Border Countries:</b>
+                    {neighbours.length ? (
+                        neighboursList
+                    ) : (
+                        <span>There is no border countries</span>
+                    )}
                 </Meta>
             </div>
         </Wrapper>
@@ -101,24 +115,40 @@ const Wrapper = styled.section`
     width: 100%;
     display: grid;
     grid-template-columns: 100%;
-    gap: 32px;
+    gap: 30px;
+    align-items: start;
 
-    @media screen and (min-width: 767px) {
-        grid-template-columns: minmax(100px, 400px) 1fr;
-        align-items: center;
-        gap: 80px;
+    @media screen and (min-width: 576px) {
+        grid-template-columns: minmax(100px, 280px) 1fr;
     }
 
-    @media screen and (min-width: 1024px) {
+    @media screen and (min-width: 768px) {
+        grid-template-columns: minmax(100px, 400px) 1fr;
+    }
+
+    @media screen and (min-width: 1200px) {
         grid-template-columns: minmax(400px, 600px) 1fr;
+        gap: 32px;
     }
 `;
 
-const InfoImage = styled.img`
-    display: block;
+const InfoImageWrapper = styled.div`
     width: 100%;
-    height: 100%;
-    object-fit: contain;
+    height: 255px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+
+    & > span {
+        width: max-content !important;
+    }
+
+    img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        object-position: top left;
+    }
 `;
 const InfoTitle = styled.h1`
     margin: 0;
@@ -153,6 +183,7 @@ const Meta = styled.div`
     align-items: flex-start;
 
     & > b {
+        white-space: nowrap;
         font-weight: var(--fw-bold);
     }
 

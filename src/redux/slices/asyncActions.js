@@ -44,27 +44,25 @@ export const fetchAllCountries = createAsyncThunk(
 
 export const fetchCountryByName = createAsyncThunk(
     'oneCountry/fetchCountryByName',
-    async (name = '') => {
-        if (!name && !name.length) return;
+    async name => {
         try {
+            let neighbours = [];
             const { data } = await axios.get(findCountryByName(name));
-            return data[0];
-        } catch (e) {
-            console.error(e);
-        }
-    }
-);
 
-export const fetchBorderCountries = createAsyncThunk(
-    'oneCountry/fetchBorderCountries',
-    async borders => {
-        try {
-            const { data } = await axios.get(
-                findBorderCountriesByCodes(borders)
-            );
-            return data;
+            if (data[0] && 'borders' in data[0]) {
+                const borders = await axios.get(findBorderCountriesByCodes(data[0].borders));
+                neighbours = await borders.data;
+            } else {
+                neighbours = [];
+            }
+
+            return {
+                ...data[0],
+                neighbours,
+            };
         } catch (e) {
             console.error(e);
+            throw new Error(e);
         }
     }
 );

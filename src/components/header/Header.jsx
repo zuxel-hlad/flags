@@ -38,6 +38,11 @@ export default Header;
 const HeaderEl = styled.header`
     box-shadow: var(--shadow);
     background-color: var(--colors-ui-base);
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1;
 `;
 const Wrapper = styled.div`
     display: flex;

@@ -13,6 +13,7 @@ import {
 import Controls from '../components/controls/Controls';
 import List from '../components/list/List';
 import Card from '../components/card/Card';
+import Loader from '../components/loader/Loader.jsx';
 
 const Home = () => {
     const countries = useSelector(allCountriesSelector);
@@ -25,8 +26,10 @@ const Home = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        dispatch(fetchAllCountries());
-    }, []);
+        if (!countries.length) {
+            dispatch(fetchAllCountries());
+        }
+    }, [countries, dispatch]);
 
     const countriesList = countries.map((country, idx) => {
         return (
@@ -41,6 +44,7 @@ const Home = () => {
 
     return (
         <section>
+            {countriesLoadingStatus === 'loading' && <Loader />}
             <Controls
                 region={region}
                 setRegion={regionVal => dispatch(setRegion(regionVal))}

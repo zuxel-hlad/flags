@@ -1,10 +1,11 @@
 import styled from 'styled-components';
+import LazyImage from '../lazy-image/LazyImage';
 
 const Card = ({ img, name, info = [], onClick, tabIndex }) => {
     return (
         <Wrapper onClick={onClick} tabIndex={tabIndex}>
             <CardImageWrapper>
-                <CardImage src={img} alt="name" />
+                <LazyImage src={img} alt={name} width="100%" height="100%" />
             </CardImageWrapper>
             <CardBody>
                 <CardTitle>{name}</CardTitle>
@@ -34,13 +35,12 @@ const Wrapper = styled.a`
 
 const CardImageWrapper = styled.div`
     width: 100%;
-    height: 154px;
+    height: 200px;
     box-shadow: var(--shadow);
-`;
 
-const CardImage = styled.img`
-    width: 100%;
-    height: 100%;
+    @media screen and (min-width: 576px) {
+        height: 154px;
+    }
 `;
 const CardBody = styled.div`
     padding: 48px 24px;

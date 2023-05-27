@@ -31,6 +31,7 @@ body {
         --colors-ui-base: hsl(209, 23%, 22%);
 
         --shadow: rgba(245, 245, 245, 0.2) 0 0 8px;
+        --loader: rgba(0, 0, 0, 0.5);
     }
 
     &[data-theme='light'] {
@@ -39,5 +40,6 @@ body {
         --colors-ui-base: hsl(0, 0%, 100%);
 
         --shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+        --loader: rgba(255, 255, 255, 0.5);
     }
 }

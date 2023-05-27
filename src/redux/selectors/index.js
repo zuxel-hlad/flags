@@ -27,5 +27,5 @@ export const allCountriesSearchSelector = state => state.allCountries.search;
 
 //one country
 export const oneCountrySelector = state => state.oneCountry.country;
-export const oneCountryBorderCountriesSelector = state =>
-    state.oneCountry.borderCountries;
+export const oneCountryLoadingStatusSelector = state => state.oneCountry.loadingStatus;
+export const oneCountryNotFoundSelector = state => state.oneCountry.notFound;

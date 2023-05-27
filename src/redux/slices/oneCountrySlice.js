@@ -1,10 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { fetchCountryByName, fetchBorderCountries } from './asyncActions';
+import { fetchCountryByName } from './asyncActions';
 
 const initialState = {
     country: null,
-    borderCountries: [],
     loadingStatus: 'idle',
+    notFound: false,
 };
 
 const oneCountrySlice = createSlice({
@@ -15,32 +15,21 @@ const oneCountrySlice = createSlice({
         builder
             //fetchCountryByName
             .addCase(fetchCountryByName.pending, state => {
+                state.country = null;
                 state.loadingStatus = 'loading';
             })
             .addCase(fetchCountryByName.fulfilled, (state, { payload }) => {
                 state.loadingStatus = 'idle';
                 state.country = payload;
             })
-            .addCase(fetchCountryByName.rejected, state => {
+            .addCase(fetchCountryByName.rejected, (state, action) => {
                 state.loadingStatus = 'error';
-            })
-            //fetchBorderCountries
-            .addCase(fetchBorderCountries.pending, state => {
-                state.loadingStatus = 'loading';
-            })
-            .addCase(fetchBorderCountries.fulfilled, (state, { payload }) => {
-                state.loadingStatus = 'idle';
-
-                if (payload.length) {
-                    state.borderCountries = payload.map(
-                        borderCountry => borderCountry.name.common
-                    );
-                } else {
-                    state.borderCountries = payload;
-                }
-            })
-            .addCase(fetchBorderCountries.rejected, state => {
-                state.loadingStatus = 'error';
+                state.notFound =
+                    parseInt(
+                        action.error.message
+                            .split(' ')
+                            .filter(item => !isNaN(item))
+                    ) === 404;
             })
             .addDefaultCase(() => {});
     },

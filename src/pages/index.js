@@ -1,5 +1,5 @@
-import ErrorPage from './404';
+import NotFound from './404';
 import Details from './Details';
 import Home from './Home';
 
-export { ErrorPage, Details, Home };
+export { NotFound, Details, Home };

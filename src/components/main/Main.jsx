@@ -12,8 +12,8 @@ export const Main = ({ children }) => {
 export default Main;
 
 const Wrapper = styled.main`
-    padding: 32px 0;
+    padding: 131px 0;
     @media screen and(min-width:767px) {
-        padding: 64px 0;
+        padding: 145px 0;
     }
 `;
