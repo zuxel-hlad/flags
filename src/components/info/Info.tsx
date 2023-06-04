@@ -1,7 +1,27 @@
 import styled from 'styled-components';
 import LazyImage from '../lazy-image/LazyImage';
+import { ICountryDetails } from '../../interfaces/country.details.interface';
+import { FC } from 'react';
+import { NavigateFunction } from 'react-router-dom';
 
-const Info = ({
+interface IInfoProps
+    extends Pick<
+        ICountryDetails,
+        | 'name'
+        | 'flags'
+        | 'capital'
+        | 'population'
+        | 'region'
+        | 'subregion'
+        | 'tld'
+        | 'currencies'
+        | 'languages'
+        | 'neighbours'
+    > {
+    navigate: NavigateFunction;
+}
+
+const Info: FC<IInfoProps> = ({
     name,
     flags,
     capital,
@@ -14,34 +34,42 @@ const Info = ({
     neighbours,
     navigate,
 }) => {
-    const renderNatiVeName =
-        Object.keys(name.nativeName).map(n => name.nativeName[n])[
-            Object.keys(name.nativeName).length - 1
-        ].official || '-';
+    const renderNatiVeName: string =
+        (name?.nativeName &&
+            Object.keys(name?.nativeName).map(n => name?.nativeName[n])[
+                Object.keys(name?.nativeName).length - 1
+            ].official) ||
+        '-';
 
-    const renderTopLevelDomains =
+    const renderTopLevelDomains: JSX.Element[] | '-' =
         tld?.map((d, idx) => <span key={idx}>{d}</span>) || '-';
 
-    const renderLanguages =
-        Object.keys(languages).map((l, idx) => (
-            <span key={idx}>{languages[l]}&nbsp;</span>
-        )) || '-';
+    const renderLanguages: JSX.Element[] | '-' =
+        (languages &&
+            Object.keys(languages).map((l, idx) => (
+                <span key={idx}>{languages[l]}&nbsp;</span>
+            ))) ||
+        '-';
 
-    const renderCurrencies = Object.keys(currencies).map((c, idx) => (
-        <span key={idx}>{currencies[c].name}&nbsp;</span>
-    ));
+    const renderCurrencies: JSX.Element[] | '-' =
+        (currencies &&
+            Object.keys(currencies).map((c, idx) => (
+                <span key={idx}>{currencies[c].name}&nbsp;</span>
+            ))) ||
+        '-';
+
     const neighboursList = (
         <TagGroup>
             {neighbours.map((neighbour, idx) => (
                 <Tag
                     onClick={() =>
-                        navigate(`/country/${neighbour.name.common}`)
+                        navigate(`/country/${neighbour?.name?.common}`)
                     }
                     key={idx}
                 >
-                    {neighbour.name.common}
+                    {neighbour?.name?.common}
                 </Tag>
-            ))}
+            )) || []}
         </TagGroup>
     );
 
@@ -60,7 +88,7 @@ const Info = ({
                 <ListGroup>
                     <List>
                         <ListItem>
-                            <b>Native name: </b>
+                            <b>Native name:</b>
                             {renderNatiVeName}
                         </ListItem>
                         <ListItem>
@@ -77,7 +105,7 @@ const Info = ({
                         </ListItem>
                         <ListItem>
                             <b>Capital: </b>
-                            {capital}
+                            {capital || '-'}
                         </ListItem>
                     </List>
                     <List>

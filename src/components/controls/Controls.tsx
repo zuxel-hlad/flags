@@ -1,9 +1,14 @@
-import { useState, useEffect } from 'react';
+import { FC } from 'react';
 import styled from 'styled-components';
 import Search from './Search';
 import CustomSelect from './CustomSelect';
 
-const options = [
+interface IOptions {
+    label: string;
+    value: string;
+}
+
+const options: IOptions[] = [
     { label: 'Africa', value: 'Africa' },
     { label: 'Americas', value: 'Americas' },
     { label: 'Asia', value: 'Asia' },
@@ -11,7 +16,22 @@ const options = [
     { label: 'Oceania', value: 'Oceania' },
 ];
 
-const Controls = ({ search, setSearch, region, setRegion }) => {
+interface ControlsProps {
+    search: string;
+    setSearch: (arg: string) => string;
+    region: {
+        label: string;
+        value: string;
+    };
+    setRegion: (arg?: string) => string;
+}
+
+const Controls: FC<ControlsProps> = ({
+    search,
+    setSearch,
+    region,
+    setRegion,
+}) => {
     return (
         <Wrapper>
             <Search search={search} setSearch={setSearch} />

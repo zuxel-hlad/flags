@@ -1,7 +1,7 @@
 import { useParams, useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import { IoArrowBack } from 'react-icons/io5';
-import { useDispatch, useSelector } from 'react-redux';
+import { useAppSelector, useAppDispatch } from '../redux/store';
 import { fetchCountryByName } from '../redux/slices/asyncActions';
 import {
     oneCountrySelector,
@@ -12,14 +12,15 @@ import Button from '../components/button/Button';
 import Info from '../components/info/Info';
 import Loader from '../components/loader/Loader';
 import { NotFound } from '../pages';
+import { ICountryDetails } from '../interfaces/country.details.interface';
 
 const Details = () => {
-    const country = useSelector(oneCountrySelector);
-    const loadingStatus = useSelector(oneCountryLoadingStatusSelector);
-    const notFound = useSelector(oneCountryNotFoundSelector);
+    const country = useAppSelector(oneCountrySelector);
+    const loadingStatus = useAppSelector(oneCountryLoadingStatusSelector);
+    const notFound = useAppSelector(oneCountryNotFoundSelector);
     const { name } = useParams();
     const navigate = useNavigate();
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
 
     useEffect(() => {
         dispatch(fetchCountryByName(name));
@@ -37,7 +38,12 @@ const Details = () => {
                     <IoArrowBack />
                     Back
                 </Button>
-                {country && <Info {...country} navigate={navigate} />}
+                {country && (
+                    <Info
+                        {...(country as ICountryDetails)}
+                        navigate={navigate}
+                    />
+                )}
             </div>
         </>
     );

@@ -1,4 +1,7 @@
 import { createSelector } from '@reduxjs/toolkit';
+import { LoadingStatus } from '../../interfaces/loading.status.type';
+import { OneCountryState } from '../slices/oneCountrySlice';
+import { RootState } from '../store';
 
 //all countries
 export const allCountriesSelector = createSelector(
@@ -26,6 +29,10 @@ export const allCountriesRegionSelector = state => state.allCountries.region;
 export const allCountriesSearchSelector = state => state.allCountries.search;
 
 //one country
-export const oneCountrySelector = state => state.oneCountry.country;
-export const oneCountryLoadingStatusSelector = state => state.oneCountry.loadingStatus;
-export const oneCountryNotFoundSelector = state => state.oneCountry.notFound;
+export const oneCountrySelector = (state: RootState) =>
+    state.oneCountry.country;
+export const oneCountryLoadingStatusSelector = (
+    state: RootState
+): LoadingStatus => state.oneCountry.loadingStatus;
+export const oneCountryNotFoundSelector = (state: RootState): boolean =>
+    state.oneCountry.notFound;

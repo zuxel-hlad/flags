@@ -5,13 +5,13 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 const Header = () => {
-    const [theme, setTheme] = useState('light');
+    const [theme, setTheme] = useState<string>('light');
 
-    const toggleTheme = () => {
+    const toggleTheme = (): void => {
         setTheme(theme === 'light' ? 'dark' : 'light');
     };
 
-    useEffect(() => {
+    useEffect((): void => {
         document.body.setAttribute('data-theme', theme);
     }, [theme]);
     return (

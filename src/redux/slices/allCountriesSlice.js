@@ -12,6 +12,7 @@ const allCountriesSlice = createSlice({
     initialState,
     reducers: {
         setRegion(state, { payload }) {
+            console.log(payload);
             state.region = payload;
         },
         setSearch(state, { payload }) {

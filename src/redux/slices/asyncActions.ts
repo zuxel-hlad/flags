@@ -1,22 +1,29 @@
+import axios, { AxiosError } from 'axios';
+import { createAsyncThunk } from '@reduxjs/toolkit';
 import {
     ALL_COUNTRIES,
     findCountryByName,
     findBorderCountriesByCodes,
-} from '../../api/index';
-import { createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';
+} from '../../api';
+import {
+    ICountry,
+    ITranformedCountry,
+} from '../../interfaces/country.interface';
+import { ICountryDetails } from '../../interfaces/country.details.interface';
 
 //all countries
 export const fetchAllCountries = createAsyncThunk(
     'allCountries/fetchAllCountries',
-    async () => {
+    async (): Promise<ITranformedCountry[]> => {
         try {
-            const { data } = await axios.get(ALL_COUNTRIES);
-            const transformedCountries =
+            const { data } = await axios.get<ICountry[]>(ALL_COUNTRIES);
+
+            const transformedCountries: ITranformedCountry[] =
                 data?.map(country => ({
                     ...country,
                     name: country.name.common,
                     img: country.flags.png,
+                    alt: country.flags.alt,
                     info: [
                         {
                             title: 'Population',
@@ -34,8 +41,13 @@ export const fetchAllCountries = createAsyncThunk(
                 })) || [];
 
             return transformedCountries;
-        } catch (e) {
-            console.error(e);
+        } catch (e: unknown) {
+            const error = e as AxiosError;
+            if (typeof error === 'object') {
+                throw new Error(error.message);
+            } else {
+                throw new Error(error);
+            }
         }
     }
 );
@@ -44,13 +56,15 @@ export const fetchAllCountries = createAsyncThunk(
 
 export const fetchCountryByName = createAsyncThunk(
     'oneCountry/fetchCountryByName',
-    async name => {
+    async (name: string): Promise<ICountryDetails> => {
         try {
             let neighbours = [];
-            const { data } = await axios.get(findCountryByName(name));
+            const { data } = await axios.get<ICountryDetails[]>(findCountryByName(name));
 
             if (data[0] && 'borders' in data[0]) {
-                const borders = await axios.get(findBorderCountriesByCodes(data[0].borders));
+                const borders = await axios.get(
+                    findBorderCountriesByCodes(data[0].borders)
+                );
                 neighbours = await borders.data;
             } else {
                 neighbours = [];
@@ -60,9 +74,13 @@ export const fetchCountryByName = createAsyncThunk(
                 ...data[0],
                 neighbours,
             };
-        } catch (e) {
-            console.error(e);
-            throw new Error(e);
+        } catch (e: unknown) {
+            const error = e as AxiosError;
+            if (typeof error === 'object') {
+                throw new Error(error.response.status + '');
+            } else {
+                console.error(error);
+            }
         }
     }
 );

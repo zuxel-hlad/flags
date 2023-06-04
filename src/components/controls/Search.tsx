@@ -1,11 +1,22 @@
 import styled from 'styled-components';
+import { FC } from 'react';
 import { IoSearch } from 'react-icons/io5';
 
-const Search = ({ search, setSearch }) => {
+interface SearchProps {
+    search: string;
+    setSearch: (arg: string) => string;
+}
+
+const Search: FC<SearchProps> = ({ search, setSearch }) => {
     return (
         <InputContainer>
             <IoSearch />
-            <Input value={search} onChange={e => setSearch(e.target.value)} />
+            <Input
+                value={search}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>): void => {
+                    setSearch(e.target.value);
+                }}
+            />
         </InputContainer>
     );
 };

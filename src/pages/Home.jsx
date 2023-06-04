@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchAllCountries } from '../redux/slices/asyncActions.js';
+import { fetchAllCountries } from '../redux/slices/asyncActions';
 import { setRegion, setSearch } from '../redux/slices/allCountriesSlice';
 import {
     allCountriesSelector,
@@ -13,7 +13,7 @@ import {
 import Controls from '../components/controls/Controls';
 import List from '../components/list/List';
 import Card from '../components/card/Card';
-import Loader from '../components/loader/Loader.jsx';
+import Loader from '../components/loader/Loader';
 
 const Home = () => {
     const countries = useSelector(allCountriesSelector);

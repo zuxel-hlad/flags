@@ -1,6 +1,11 @@
 import styled from 'styled-components';
+import { FC } from 'react';
 
-const List = ({ children }) => {
+interface ListProps {
+    children: JSX.Element;
+}
+
+const List: FC<ListProps> = ({ children }) => {
     return <Wrapper>{children}</Wrapper>;
 };
 

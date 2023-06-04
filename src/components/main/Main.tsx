@@ -1,7 +1,12 @@
 import styled from 'styled-components';
 import { Container } from '../container/Container';
+import { FC } from 'react';
 
-export const Main = ({ children }) => {
+interface MainProps {
+    children: JSX.Element;
+}
+
+export const Main: FC<MainProps> = ({ children }) => {
     return (
         <Wrapper>
             <Container>{children}</Container>
