@@ -10,7 +10,7 @@ import {
     allCountriesRegionSelector,
     allCountriesSearchSelector,
 } from '../redux/selectors';
-
+import styled from 'styled-components';
 import Controls from '../components/controls/Controls';
 import List from '../components/list/List';
 import Card from '../components/card/Card';
@@ -28,8 +28,10 @@ const Home: FC = () => {
     const navigate = useNavigate();
 
     useEffect((): void => {
-        dispatch(fetchAllCountries());
-    }, [dispatch]);
+        if (!countries.length) {
+            dispatch(fetchAllCountries());
+        }
+    }, []);
 
     const updateRegion = (regionVal: IRegion): void => {
         dispatch(setRegion(regionVal));
@@ -39,16 +41,18 @@ const Home: FC = () => {
         dispatch(setSearch(searchVal));
     };
 
-    const countriesList = countries.map((country, idx) => {
-        return (
-            <Card
-                key={idx}
-                {...country}
-                onClick={() => navigate(`country/${country.name}`)}
-                tabIndex={idx + 1}
-            />
-        );
-    });
+    const countriesList: JSX.Element[] = countries.map(
+        (country, idx): JSX.Element => {
+            return (
+                <Card
+                    key={idx}
+                    {...country}
+                    onClick={() => navigate(`country/${country.name}`)}
+                    tabIndex={idx + 1}
+                />
+            );
+        }
+    );
 
     return (
         <section>
@@ -59,9 +63,24 @@ const Home: FC = () => {
                 setRegion={updateRegion}
                 setSearch={searchCountry}
             />
-            <List>{countriesList}</List>
+            {countries.length && !search ? <List>{countriesList}</List> : null}
+            {!countries.length && !search && countriesLoadingStatus !== 'loading'
+                && countriesLoadingStatus !== 'error' && 
+            <NotFoundMessage>No countries now.</NotFoundMessage>}
+            {!countries.length && search && countriesLoadingStatus !== 'loading'
+                && countriesLoadingStatus !== 'error' && 
+            <NotFoundMessage>Nothing found for your request.</NotFoundMessage>}
+
         </section>
     );
 };
+
+const NotFoundMessage = styled.span`
+    display: block;
+    width: max-content;
+    margin: 20px auto 0 auto;
+    font-size: var(--fs-md);
+    font-weight: var(--fw-bold);
+`;
 
 export default Home;

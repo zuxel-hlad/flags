@@ -2,11 +2,11 @@ import styled from 'styled-components';
 import { FC, ReactPortal } from 'react';
 
 interface ListProps {
-    children: JSX.Element | JSX.Element[] | ReactPortal | string | undefined;
+    children: string | JSX.Element | JSX.Element[] | ReactPortal | undefined;
 }
 
-const List: FC<ListProps> = props => {
-    return <Wrapper>{props.children}</Wrapper>;
+const List: FC<ListProps> = ({ children }) => {
+    return <Wrapper>{children}</Wrapper>;
 };
 
 export default List;
