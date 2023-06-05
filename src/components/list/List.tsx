@@ -1,12 +1,12 @@
 import styled from 'styled-components';
-import { FC } from 'react';
+import { FC, ReactPortal } from 'react';
 
 interface ListProps {
-    children: JSX.Element;
+    children: JSX.Element | JSX.Element[] | ReactPortal | string | undefined;
 }
 
-const List: FC<ListProps> = ({ children }) => {
-    return <Wrapper>{children}</Wrapper>;
+const List: FC<ListProps> = props => {
+    return <Wrapper>{props.children}</Wrapper>;
 };
 
 export default List;

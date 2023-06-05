@@ -1,6 +1,17 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { fetchAllCountries } from './asyncActions';
-const initialState = {
+import { ITranformedCountry } from '../../interfaces/country.interface';
+import { LoadingStatus } from '../../interfaces/loading.status.type';
+import { IRegion } from '../../interfaces/region.interface';
+
+export interface IAllCountriesState {
+    countries: ITranformedCountry[];
+    search: string;
+    region: null | IRegion;
+    loadingStatus: LoadingStatus;
+}
+
+const initialState: IAllCountriesState = {
     countries: [],
     search: '',
     region: null,
@@ -11,11 +22,10 @@ const allCountriesSlice = createSlice({
     name: 'allCountries',
     initialState,
     reducers: {
-        setRegion(state, { payload }) {
-            console.log(payload);
+        setRegion(state, { payload }: PayloadAction<IRegion>) {
             state.region = payload;
         },
-        setSearch(state, { payload }) {
+        setSearch(state, { payload }: PayloadAction<string>) {
             state.search = payload;
         },
     },

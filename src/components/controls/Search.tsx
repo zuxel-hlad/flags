@@ -4,7 +4,7 @@ import { IoSearch } from 'react-icons/io5';
 
 interface SearchProps {
     search: string;
-    setSearch: (arg: string) => string;
+    setSearch: (arg: string) => void;
 }
 
 const Search: FC<SearchProps> = ({ search, setSearch }) => {

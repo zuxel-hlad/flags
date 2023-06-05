@@ -1,4 +1,5 @@
 import { FC } from 'react';
+import { IRegion } from '../../interfaces/region.interface';
 import styled from 'styled-components';
 import Search from './Search';
 import CustomSelect from './CustomSelect';
@@ -18,12 +19,9 @@ const options: IOptions[] = [
 
 interface ControlsProps {
     search: string;
-    setSearch: (arg: string) => string;
-    region: {
-        label: string;
-        value: string;
-    };
-    setRegion: (arg?: string) => string;
+    region: IRegion;
+    setSearch: (arg: string) => void;
+    setRegion: (region: IRegion) => void;
 }
 
 const Controls: FC<ControlsProps> = ({

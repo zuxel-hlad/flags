@@ -9,11 +9,11 @@ export interface OneCountryState {
     notFound: boolean;
 }
 
-const initialState = {
+const initialState: OneCountryState = {
     country: null,
     loadingStatus: 'idle',
     notFound: false,
-} as OneCountryState;
+};
 
 const oneCountrySlice = createSlice({
     name: 'oneCountry',
