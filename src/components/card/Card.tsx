@@ -32,16 +32,12 @@ const CardImageWrapper = styled.div`
 const CardBody = styled.div`
     padding: 48px 24px;
 `;
-const CardTitle = styled.h3.attrs({
-    'data-aos': 'fade-up',
-})`
+const CardTitle = styled.h3`
     margin: 0;
     font-size: var(--fs-md);
     font-weight: var(--fw-bold);
 `;
-const CardList = styled.ul.attrs({
-    'data-aos': 'fade-up',
-})`
+const CardList = styled.ul`
     list-style: none;
     margin: 0;
     padding: 16px 0 0;

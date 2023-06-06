@@ -24,10 +24,7 @@ interface ControlsProps {
     setRegion: (region: IRegion) => void;
 }
 
-const Wrapper = styled.div.attrs({
-    'data-aos': 'fade-left',
-    'data-aos-duration': '700',
-})`
+const Wrapper = styled.div`
     display: flex;
     flex-direction: column;
     align-items: flex-start;

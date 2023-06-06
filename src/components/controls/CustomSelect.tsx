@@ -26,10 +26,14 @@ const CustomSelect = styled(Select).attrs({
         },
     },
 })`
-    width: 200px;
     border-radius: var(--radii);
     font-family: var(--family);
     border: 'none';
+    width: 100%;
+
+    @media screen and (min-width: 767px) {
+        width: 200px;
+    }
 
     & > * {
         box-shadow: var(--shadow);
