@@ -2,6 +2,8 @@
 
 This project was created from task at Frontend Mentor (https://www.frontendmentor.io/challenges/rest-countries-api-with-color-theme-switcher-5cacc469fec04111f7b848ca).
 
+You can watch result at:
+
 ## Technologies used:
 
 -- react 18.2.0
