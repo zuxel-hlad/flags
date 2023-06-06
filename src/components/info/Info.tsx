@@ -83,7 +83,7 @@ const Info: FC<IInfoProps> = ({
                     height="100%"
                 />
             </InfoImageWrapper>
-            <div>
+            <div data-aos="fade-left">
                 <InfoTitle>{name.common}</InfoTitle>
                 <ListGroup>
                     <List>

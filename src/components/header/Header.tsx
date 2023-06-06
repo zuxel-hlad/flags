@@ -64,6 +64,7 @@ const Wrapper = styled.div`
 `;
 const Title = styled(Link).attrs({
     to: '/',
+    'data-aos': 'fade-right',
 })`
     color: var(--colors-text);
     font-size: var(--fs-sm);
@@ -72,6 +73,7 @@ const Title = styled(Link).attrs({
 `;
 const ModeSwitcher = styled.button.attrs({
     type: 'button',
+    'data-aos': 'fade-left',
 })`
     color: var(--colors-text);
     font-size: var(--fs-sm);

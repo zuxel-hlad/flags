@@ -47,7 +47,10 @@ const Controls: FC<ControlsProps> = ({
 
 export default Controls;
 
-const Wrapper = styled.div`
+const Wrapper = styled.div.attrs({
+    'data-aos': 'fade-left',
+    'data-aos-duration': '700',
+})`
     display: flex;
     flex-direction: column;
     align-items: flex-start;

@@ -38,7 +38,9 @@ const Card: FC<CardProps> = ({
 
 export default Card;
 
-const Wrapper = styled.a`
+const Wrapper = styled.a.attrs({
+    'data-aos': 'fade-up',
+})`
     display: 'block';
     text-decoration: none;
     border-radius: var(--radii);
@@ -60,12 +62,16 @@ const CardImageWrapper = styled.div`
 const CardBody = styled.div`
     padding: 48px 24px;
 `;
-const CardTitle = styled.h3`
+const CardTitle = styled.h3.attrs({
+    'data-aos': 'fade-up',
+})`
     margin: 0;
     font-size: var(--fs-md);
     font-weight: var(--fw-bold);
 `;
-const CardList = styled.ul`
+const CardList = styled.ul.attrs({
+    'data-aos': 'fade-up',
+})`
     list-style: none;
     margin: 0;
     padding: 16px 0 0;
