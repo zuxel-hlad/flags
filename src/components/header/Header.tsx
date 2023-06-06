@@ -4,14 +4,26 @@ import { IoMoon, IoMoonOutline } from 'react-icons/io5';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
+type Theme = 'light' | 'dark';
+
 const Header = () => {
-    const [theme, setTheme] = useState<string>('light');
+    const [theme, setTheme] = useState<Theme>('light');
 
     const toggleTheme = (): void => {
-        setTheme(theme === 'light' ? 'dark' : 'light');
+        setTheme((prevTheme: Theme) => {
+            let currentTheme: Theme = 'light';
+            currentTheme = prevTheme === 'light' ? 'dark' : 'light';
+            localStorage.setItem('theme', currentTheme);
+            return currentTheme;
+        });
     };
 
     useEffect((): void => {
+        const localStorageTheme = localStorage.getItem('theme') as Theme;
+        if (localStorageTheme) {
+            setTheme(localStorageTheme);
+            document.body.setAttribute('data-theme', theme);
+        }
         document.body.setAttribute('data-theme', theme);
     }, [theme]);
     return (
