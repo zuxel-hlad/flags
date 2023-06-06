@@ -131,40 +131,46 @@ const Info: FC<IInfoProps> = ({
 }) => {
     const renderNatiVeName: string =
         (name?.nativeName &&
-            Object.keys(name?.nativeName).map(n => name?.nativeName[n])[
-                Object.keys(name?.nativeName).length - 1
-            ].official) ||
+            Object.keys(name?.nativeName).map(n => {
+                return name?.nativeName[n];
+            })[Object.keys(name?.nativeName).length - 1].official) ||
         '-';
 
     const renderTopLevelDomains: JSX.Element[] | '-' =
-        tld?.map(d => <span key={d}>{d}</span>) || '-';
+        tld?.map(d => {
+            return <span key={d}>{d}</span>;
+        }) || '-';
 
     const renderLanguages: JSX.Element[] | '-' =
         (languages &&
-            Object.keys(languages).map(l => (
-                <span key={l}>{languages[l]}&nbsp;</span>
-            ))) ||
+            Object.keys(languages).map(l => {
+                return <span key={l}>{languages[l]}&nbsp;</span>;
+            })) ||
         '-';
 
     const renderCurrencies: JSX.Element[] | '-' =
         (currencies &&
-            Object.keys(currencies).map(c => (
-                <span key={c}>{currencies[c].name}&nbsp;</span>
-            ))) ||
+            Object.keys(currencies).map(c => {
+                return <span key={c}>{currencies[c].name}&nbsp;</span>;
+            })) ||
         '-';
 
     const neighboursList = (
         <TagGroup>
-            {neighbours.map(neighbour => (
-                <Tag
-                    onClick={() =>
-                        navigate(`/country/${neighbour?.name?.common}`)
-                    }
-                    key={neighbour}
-                >
-                    {neighbour?.name?.common}
-                </Tag>
-            )) || []}
+            {neighbours.map(neighbour => {
+                return (
+                    <Tag
+                        onClick={() => {
+                            return navigate(
+                                `/country/${neighbour?.name?.common}`
+                            );
+                        }}
+                        key={neighbour}
+                    >
+                        {neighbour?.name?.common}
+                    </Tag>
+                );
+            }) || []}
         </TagGroup>
     );
 

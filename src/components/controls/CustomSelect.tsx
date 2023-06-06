@@ -3,23 +3,27 @@ import Select from 'react-select';
 
 const CustomSelect = styled(Select).attrs({
     styles: {
-        control: provided => ({
-            ...provided,
-            backgroundColor: 'var(--colors-ui-base)',
-            color: 'var(--colors-text)',
-            padding: '4px',
-            border: 'none',
-            boxShadow: 'var(--shadow)',
-            height: '50px',
-        }),
-        option: (provided, state) => ({
-            ...provided,
-            cursor: 'pointer',
-            color: 'var(--colors-text)',
-            backgroundColor: state.isSelected
-                ? 'var(--colors-bg)'
-                : 'var(--colors-ui-base)',
-        }),
+        control: provided => {
+            return {
+                ...provided,
+                backgroundColor: 'var(--colors-ui-base)',
+                color: 'var(--colors-text)',
+                padding: '4px',
+                border: 'none',
+                boxShadow: 'var(--shadow)',
+                height: '50px',
+            };
+        },
+        option: (provided, state) => {
+            return {
+                ...provided,
+                cursor: 'pointer',
+                color: 'var(--colors-text)',
+                backgroundColor: state.isSelected
+                    ? 'var(--colors-bg)'
+                    : 'var(--colors-ui-base)',
+            };
+        },
     },
 })`
     width: 200px;

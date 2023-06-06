@@ -23,13 +23,15 @@ const App: FC = () => {
             <Header />
             <Main>
                 <Routes>
-                    {router.map(({ element, path }) => (
-                        <Route
-                            path={path}
-                            Component={element}
-                            key={path}
-                        />
-                    ))}
+                    {router.map(({ element, path }) => {
+                        return (
+                            <Route
+                                path={path}
+                                Component={element}
+                                key={path}
+                            />
+                        );
+                    })}
                     <Route
                         path="*"
                         element={

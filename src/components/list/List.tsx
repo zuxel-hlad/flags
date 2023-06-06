@@ -28,6 +28,8 @@ const Wrapper = styled.section`
     }
 `;
 
-const List: FC<ListProps> = ({ children }) => <Wrapper>{children}</Wrapper>;
+const List: FC<ListProps> = ({ children }) => {
+    return <Wrapper>{children}</Wrapper>;
+};
 
 export default List;

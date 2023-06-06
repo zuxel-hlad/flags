@@ -7,6 +7,7 @@ This project was created from task at Frontend Mentor (https://www.frontendmento
 -- react 18.2.0
 -- react-redux
 -- reduxt-toolkit
+-- react-lazy-image
 -- typescrit 4.9.5
 -- styled-components
 -- AOS animation

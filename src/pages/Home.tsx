@@ -43,15 +43,19 @@ const Home: FC = () => {
     };
 
     const countriesList: JSX.Element[] = countries.map(
-        (country, idx): JSX.Element => (
-            <Card
-                key={country.name}
-                // eslint-disable-next-line react/jsx-props-no-spreading
-                {...country}
-                onClick={() => navigate(`country/${country.name}`)}
-                tabIndex={idx + 1}
-            />
-        )
+        (country, idx): JSX.Element => {
+            return (
+                <Card
+                    key={country.name}
+                    // eslint-disable-next-line react/jsx-props-no-spreading
+                    {...country}
+                    onClick={() => {
+                        return navigate(`country/${country.name}`);
+                    }}
+                    tabIndex={idx + 1}
+                />
+            );
+        }
     );
 
     return (

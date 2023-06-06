@@ -19,26 +19,29 @@ export const fetchAllCountries = createAsyncThunk(
             const { data } = await axios.get<ICountry[]>(ALL_COUNTRIES);
 
             const transformedCountries: ITranformedCountry[] =
-                data?.map(country => ({
-                    ...country,
-                    name: country.name.common,
-                    img: country.flags.png,
-                    alt: country.flags.alt,
-                    info: [
-                        {
-                            title: 'Population',
-                            description: country.population.toLocaleString(),
-                        },
-                        {
-                            title: 'Region',
-                            description: country.region,
-                        },
-                        {
-                            title: 'Capital',
-                            description: country.capital,
-                        },
-                    ],
-                })) || [];
+                data?.map(country => {
+                    return {
+                        ...country,
+                        name: country.name.common,
+                        img: country.flags.png,
+                        alt: country.flags.alt,
+                        info: [
+                            {
+                                title: 'Population',
+                                description:
+                                    country.population.toLocaleString(),
+                            },
+                            {
+                                title: 'Region',
+                                description: country.region,
+                            },
+                            {
+                                title: 'Capital',
+                                description: country.capital,
+                            },
+                        ],
+                    };
+                }) || [];
 
             return transformedCountries;
         } catch (e: unknown) {
@@ -53,7 +56,6 @@ export const fetchAllCountries = createAsyncThunk(
 );
 
 // one country
-
 export const fetchCountryByName = createAsyncThunk(
     'oneCountry/fetchCountryByName',
     async (name: string): Promise<ICountryDetails> => {

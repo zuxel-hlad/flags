@@ -18,7 +18,11 @@ const ErrorPage: FC = () => {
     const navigate = useNavigate();
     return (
         <>
-            <NotFoundBtn onClick={() => navigate('/')}>
+            <NotFoundBtn
+                onClick={() => {
+                    return navigate('/');
+                }}
+            >
                 <IoArrowBack />
                 Home
             </NotFoundBtn>

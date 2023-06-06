@@ -17,8 +17,10 @@
         "es6": true
     },
     "plugins": ["prettier", "react", "react-hooks", "html"],
+
     "rules": {
         "camelcase": "error",
+        "arrow-body-style": ["error", "always"],
         "spaced-comment": "error",
         "no-duplicate-imports": "error",
         "import/no-named-as-default": 0,

@@ -44,21 +44,23 @@ const Controls: FC<ControlsProps> = ({
     setSearch,
     region,
     setRegion,
-}) => (
-    <Wrapper>
-        <Search
-            search={search}
-            setSearch={setSearch}
-        />
-        <CustomSelect
-            placeholder="Filter by Region"
-            options={options}
-            isSearchable={false}
-            value={region}
-            onChange={setRegion}
-            isClearable
-        />
-    </Wrapper>
-);
+}) => {
+    return (
+        <Wrapper>
+            <Search
+                search={search}
+                setSearch={setSearch}
+            />
+            <CustomSelect
+                placeholder="Filter by Region"
+                options={options}
+                isSearchable={false}
+                value={region}
+                onChange={setRegion}
+                isClearable
+            />
+        </Wrapper>
+    );
+};
 
 export default Controls;

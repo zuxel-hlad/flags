@@ -34,16 +34,18 @@ const Input = styled.input.attrs({
     color: var(--colors-text);
 `;
 
-const Search: FC<SearchProps> = ({ search, setSearch }) => (
-    <InputContainer>
-        <IoSearch />
-        <Input
-            value={search}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>): void => {
-                setSearch(e.target.value);
-            }}
-        />
-    </InputContainer>
-);
+const Search: FC<SearchProps> = ({ search, setSearch }) => {
+    return (
+        <InputContainer>
+            <IoSearch />
+            <Input
+                value={search}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>): void => {
+                    setSearch(e.target.value);
+                }}
+            />
+        </InputContainer>
+    );
+};
 
 export default Search;

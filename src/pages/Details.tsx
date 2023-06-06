@@ -37,7 +37,9 @@ const Details: FC = () => {
             <div>
                 <Button
                     type="button"
-                    onClick={() => navigate(-1)}
+                    onClick={() => {
+                        return navigate(-1);
+                    }}
                 >
                     <IoArrowBack />
                     Back

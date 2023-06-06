@@ -63,31 +63,35 @@ const Card: FC<CardProps> = ({
     onClick,
     tabIndex,
     alt,
-}) => (
-    <Wrapper
-        onClick={onClick}
-        tabIndex={tabIndex}
-    >
-        <CardImageWrapper>
-            <LazyImage
-                src={img}
-                alt={alt}
-                width="100%"
-                height="100%"
-            />
-        </CardImageWrapper>
-        <CardBody>
-            <CardTitle>{name}</CardTitle>
-            <CardList>
-                {info.map(el => (
-                    <CardListItem key={el.title}>
-                        <b>{el.title}:</b>{' '}
-                        {el.description.length ? el.description : '-'}
-                    </CardListItem>
-                ))}
-            </CardList>
-        </CardBody>
-    </Wrapper>
-);
+}) => {
+    return (
+        <Wrapper
+            onClick={onClick}
+            tabIndex={tabIndex}
+        >
+            <CardImageWrapper>
+                <LazyImage
+                    src={img}
+                    alt={alt}
+                    width="100%"
+                    height="100%"
+                />
+            </CardImageWrapper>
+            <CardBody>
+                <CardTitle>{name}</CardTitle>
+                <CardList>
+                    {info.map(el => {
+                        return (
+                            <CardListItem key={el.title}>
+                                <b>{el.title}:</b>{' '}
+                                {el.description.length ? el.description : '-'}
+                            </CardListItem>
+                        );
+                    })}
+                </CardList>
+            </CardBody>
+        </Wrapper>
+    );
+};
 
 export default Card;

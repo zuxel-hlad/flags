@@ -9,13 +9,15 @@ interface LazyImageProps {
     height: string;
 }
 
-const LazyImage: FC<LazyImageProps> = ({ src, alt, width, height }) => (
-    <LazyLoadImage
-        alt={alt}
-        effect="blur"
-        src={src}
-        width={width}
-        height={height}
-    />
-);
+const LazyImage: FC<LazyImageProps> = ({ src, alt, width, height }) => {
+    return (
+        <LazyLoadImage
+            alt={alt}
+            effect="blur"
+            src={src}
+            width={width}
+            height={height}
+        />
+    );
+};
 export default LazyImage;
