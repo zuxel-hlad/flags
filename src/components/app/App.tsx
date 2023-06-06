@@ -1,19 +1,19 @@
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { FC } from 'react';
-import { Home, Details, NotFound } from '../../pages';
+import { router } from '../../router/intex';
 
 import Header from '../header/Header';
 import Main from '../main/Main';
 
 const App: FC = () => {
     return (
-        <div className="App">
+        <div className="app">
             <Header />
             <Main>
                 <Routes>
-                    <Route path="/" element={<Home />} />
-                    <Route path="/country/:name" element={<Details />} />
-                    <Route path="/404" element={<NotFound />} />
+                    {router.map(({ element, path }, idx) => (
+                        <Route path={path} Component={element} key={idx} />
+                    ))}
                     <Route path="*" element={<Navigate replace to="/404" />} />
                 </Routes>
             </Main>

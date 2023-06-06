@@ -1,3 +1,4 @@
+import { FC } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import { IoArrowBack } from 'react-icons/io5';
@@ -14,7 +15,7 @@ import Loader from '../components/loader/Loader';
 import { NotFound } from '../pages';
 import { ICountryDetails } from '../interfaces/country.details.interface';
 
-const Details = () => {
+const Details: FC = () => {
     const country = useAppSelector(oneCountrySelector);
     const loadingStatus = useAppSelector(oneCountryLoadingStatusSelector);
     const notFound = useAppSelector(oneCountryNotFoundSelector);

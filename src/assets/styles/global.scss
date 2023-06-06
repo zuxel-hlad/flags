@@ -10,6 +10,7 @@
     --family: 'Nunito Sans', sans-serif;
     --fs-sm: 14px;
     --fs-md: 16px;
+    --fs-lg: 72px;
     --fw-light: 300;
     --fw-normal: 600;
     --fw-bold: 800;
@@ -42,4 +43,8 @@ body {
         --shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
         --loader: rgba(255, 255, 255, 0.5);
     }
+}
+
+.app {
+    overflow: hidden;
 }

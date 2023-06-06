@@ -10,12 +10,13 @@ import {
     allCountriesRegionSelector,
     allCountriesSearchSelector,
 } from '../redux/selectors';
+import { IRegion } from '../interfaces/region.interface';
 import styled from 'styled-components';
 import Controls from '../components/controls/Controls';
 import List from '../components/list/List';
 import Card from '../components/card/Card';
 import Loader from '../components/loader/Loader';
-import { IRegion } from '../interfaces/region.interface';
+import ErrorMessage from '../components/error-message/ErrorMessage';
 
 const Home: FC = () => {
     const countries = useAppSelector(allCountriesSelector);
@@ -66,21 +67,16 @@ const Home: FC = () => {
             {countries.length && !search ? <List>{countriesList}</List> : null}
             {!countries.length && !search && countriesLoadingStatus !== 'loading'
                 && countriesLoadingStatus !== 'error' && 
-            <NotFoundMessage>No countries now.</NotFoundMessage>}
+            <ErrorMessage>No countries now.</ErrorMessage>}
             {!countries.length && search && countriesLoadingStatus !== 'loading'
                 && countriesLoadingStatus !== 'error' && 
-            <NotFoundMessage>Nothing found for your request.</NotFoundMessage>}
+            <ErrorMessage>Nothing found for your request.</ErrorMessage>}
+            {countriesLoadingStatus === 'error' && <ErrorMessage>Ooops... Something goes wrong.<br/>
+            Please, refresh page, and try again.
+            </ErrorMessage>}
 
         </section>
     );
 };
-
-const NotFoundMessage = styled.span`
-    display: block;
-    width: max-content;
-    margin: 20px auto 0 auto;
-    font-size: var(--fs-md);
-    font-weight: var(--fw-bold);
-`;
 
 export default Home;
