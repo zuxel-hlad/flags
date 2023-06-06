@@ -10,6 +10,7 @@ You can watch result at:
 -- react-redux
 -- reduxt-toolkit
 -- react-lazy-image
+-- react-select
 -- typescrit 4.9.5
 -- styled-components
 -- AOS animation
