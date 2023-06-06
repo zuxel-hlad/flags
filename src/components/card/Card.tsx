@@ -1,42 +1,12 @@
 import styled from 'styled-components';
-import LazyImage from '../lazy-image/LazyImage';
 import { FC } from 'react';
+import LazyImage from '../lazy-image/LazyImage';
 import { ITranformedCountry } from '../../interfaces/country.interface';
 
 interface CardProps extends ITranformedCountry {
     onClick: () => void;
     tabIndex: number | string;
 }
-
-const Card: FC<CardProps> = ({
-    img,
-    name,
-    info = [],
-    onClick,
-    tabIndex,
-    alt,
-}) => {
-    return (
-        <Wrapper onClick={onClick} tabIndex={tabIndex}>
-            <CardImageWrapper>
-                <LazyImage src={img} alt={alt} width="100%" height="100%" />
-            </CardImageWrapper>
-            <CardBody>
-                <CardTitle>{name}</CardTitle>
-                <CardList>
-                    {info.map((el, ind: number) => (
-                        <CardListItem key={ind}>
-                            <b>{el.title}:</b>{' '}
-                            {el.description.length ? el.description : '-'}
-                        </CardListItem>
-                    ))}
-                </CardList>
-            </CardBody>
-        </Wrapper>
-    );
-};
-
-export default Card;
 
 const Wrapper = styled.a.attrs({
     'data-aos': 'fade-up',
@@ -85,3 +55,39 @@ const CardListItem = styled.li`
         font-weight: var(--fw-bold);
     }
 `;
+
+const Card: FC<CardProps> = ({
+    img,
+    name,
+    info = [],
+    onClick,
+    tabIndex,
+    alt,
+}) => (
+    <Wrapper
+        onClick={onClick}
+        tabIndex={tabIndex}
+    >
+        <CardImageWrapper>
+            <LazyImage
+                src={img}
+                alt={alt}
+                width="100%"
+                height="100%"
+            />
+        </CardImageWrapper>
+        <CardBody>
+            <CardTitle>{name}</CardTitle>
+            <CardList>
+                {info.map(el => (
+                    <CardListItem key={el.title}>
+                        <b>{el.title}:</b>{' '}
+                        {el.description.length ? el.description : '-'}
+                    </CardListItem>
+                ))}
+            </CardList>
+        </CardBody>
+    </Wrapper>
+);
+
+export default Card;

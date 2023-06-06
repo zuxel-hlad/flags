@@ -1,6 +1,6 @@
 import { FC } from 'react';
-import { IRegion } from '../../interfaces/region.interface';
 import styled from 'styled-components';
+import { IRegion } from '../../interfaces/region.interface';
 import Search from './Search';
 import CustomSelect from './CustomSelect';
 
@@ -24,29 +24,6 @@ interface ControlsProps {
     setRegion: (region: IRegion) => void;
 }
 
-const Controls: FC<ControlsProps> = ({
-    search,
-    setSearch,
-    region,
-    setRegion,
-}) => {
-    return (
-        <Wrapper>
-            <Search search={search} setSearch={setSearch} />
-            <CustomSelect
-                placeholder="Filter by Region"
-                options={options}
-                isSearchable={false}
-                value={region}
-                onChange={setRegion}
-                isClearable
-            />
-        </Wrapper>
-    );
-};
-
-export default Controls;
-
 const Wrapper = styled.div.attrs({
     'data-aos': 'fade-left',
     'data-aos-duration': '700',
@@ -61,3 +38,27 @@ const Wrapper = styled.div.attrs({
         align-items: center;
     }
 `;
+
+const Controls: FC<ControlsProps> = ({
+    search,
+    setSearch,
+    region,
+    setRegion,
+}) => (
+    <Wrapper>
+        <Search
+            search={search}
+            setSearch={setSearch}
+        />
+        <CustomSelect
+            placeholder="Filter by Region"
+            options={options}
+            isSearchable={false}
+            value={region}
+            onChange={setRegion}
+            isClearable
+        />
+    </Wrapper>
+);
+
+export default Controls;

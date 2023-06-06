@@ -11,7 +11,7 @@ import {
 } from '../../interfaces/country.interface';
 import { ICountryDetails } from '../../interfaces/country.details.interface';
 
-//all countries
+// all countries
 export const fetchAllCountries = createAsyncThunk(
     'allCountries/fetchAllCountries',
     async (): Promise<ITranformedCountry[]> => {
@@ -52,14 +52,16 @@ export const fetchAllCountries = createAsyncThunk(
     }
 );
 
-//one country
+// one country
 
 export const fetchCountryByName = createAsyncThunk(
     'oneCountry/fetchCountryByName',
     async (name: string): Promise<ICountryDetails> => {
         try {
             let neighbours = [];
-            const { data } = await axios.get<ICountryDetails[]>(findCountryByName(name));
+            const { data } = await axios.get<ICountryDetails[]>(
+                findCountryByName(name)
+            );
 
             if (data[0] && 'borders' in data[0]) {
                 const borders = await axios.get(
@@ -77,10 +79,11 @@ export const fetchCountryByName = createAsyncThunk(
         } catch (e: unknown) {
             const error = e as AxiosError;
             if (typeof error === 'object') {
-                throw new Error(error.response.status + '');
+                throw new Error(`${error.response.status}`);
             } else {
                 console.error(error);
             }
+            return null;
         }
     }
 );

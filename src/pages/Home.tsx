@@ -1,5 +1,5 @@
-import { FC } from 'react';
-import { useEffect } from 'react';
+import { FC, JSX, useEffect } from 'react';
+
 import { useNavigate } from 'react-router-dom';
 import { useAppSelector, useAppDispatch } from '../redux/store';
 import { fetchAllCountries } from '../redux/slices/asyncActions';
@@ -11,7 +11,6 @@ import {
     allCountriesSearchSelector,
 } from '../redux/selectors';
 import { IRegion } from '../interfaces/region.interface';
-import styled from 'styled-components';
 import Controls from '../components/controls/Controls';
 import List from '../components/list/List';
 import Card from '../components/card/Card';
@@ -32,6 +31,7 @@ const Home: FC = () => {
         if (!countries.length) {
             dispatch(fetchAllCountries());
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const updateRegion = (regionVal: IRegion): void => {
@@ -43,16 +43,15 @@ const Home: FC = () => {
     };
 
     const countriesList: JSX.Element[] = countries.map(
-        (country, idx): JSX.Element => {
-            return (
-                <Card
-                    key={idx}
-                    {...country}
-                    onClick={() => navigate(`country/${country.name}`)}
-                    tabIndex={idx + 1}
-                />
-            );
-        }
+        (country, idx): JSX.Element => (
+            <Card
+                key={country.name}
+                // eslint-disable-next-line react/jsx-props-no-spreading
+                {...country}
+                onClick={() => navigate(`country/${country.name}`)}
+                tabIndex={idx + 1}
+            />
+        )
     );
 
     return (
@@ -65,16 +64,25 @@ const Home: FC = () => {
                 setSearch={searchCountry}
             />
             {countries.length && !search ? <List>{countriesList}</List> : null}
-            {!countries.length && !search && countriesLoadingStatus !== 'loading'
-                && countriesLoadingStatus !== 'error' && 
-            <ErrorMessage>No countries now.</ErrorMessage>}
-            {!countries.length && search && countriesLoadingStatus !== 'loading'
-                && countriesLoadingStatus !== 'error' && 
-            <ErrorMessage>Nothing found for your request.</ErrorMessage>}
-            {countriesLoadingStatus === 'error' && <ErrorMessage>Ooops... Something goes wrong.<br/>
-            Please, refresh page, and try again.
-            </ErrorMessage>}
-
+            {!countries.length &&
+                !search &&
+                countriesLoadingStatus !== 'loading' &&
+                countriesLoadingStatus !== 'error' && (
+                    <ErrorMessage>No countries now.</ErrorMessage>
+                )}
+            {!countries.length &&
+                search &&
+                countriesLoadingStatus !== 'loading' &&
+                countriesLoadingStatus !== 'error' && (
+                    <ErrorMessage>Nothing found for your request.</ErrorMessage>
+                )}
+            {countriesLoadingStatus === 'error' && (
+                <ErrorMessage>
+                    Ooops... Something goes wrong.
+                    <br />
+                    Please, refresh page, and try again.
+                </ErrorMessage>
+            )}
         </section>
     );
 };

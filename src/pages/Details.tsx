@@ -1,6 +1,6 @@
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { useEffect } from 'react';
+
 import { IoArrowBack } from 'react-icons/io5';
 import { useAppSelector, useAppDispatch } from '../redux/store';
 import { fetchCountryByName } from '../redux/slices/asyncActions';
@@ -12,7 +12,7 @@ import {
 import Button from '../components/button/Button';
 import Info from '../components/info/Info';
 import Loader from '../components/loader/Loader';
-import { NotFound } from '../pages';
+import NotFound from './404';
 import { ICountryDetails } from '../interfaces/country.details.interface';
 
 const Details: FC = () => {
@@ -35,12 +35,16 @@ const Details: FC = () => {
         <>
             {loadingStatus === 'loading' && <Loader />}
             <div>
-                <Button type="button" onClick={() => navigate(-1)}>
+                <Button
+                    type="button"
+                    onClick={() => navigate(-1)}
+                >
                     <IoArrowBack />
                     Back
                 </Button>
                 {country && (
                     <Info
+                        // eslint-disable-next-line react/jsx-props-no-spreading
                         {...(country as ICountryDetails)}
                         navigate={navigate}
                     />

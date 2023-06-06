@@ -1,27 +1,11 @@
 import styled from 'styled-components';
-import { FC } from 'react';
+import React, { FC } from 'react';
 import { IoSearch } from 'react-icons/io5';
 
 interface SearchProps {
     search: string;
     setSearch: (arg: string) => void;
 }
-
-const Search: FC<SearchProps> = ({ search, setSearch }) => {
-    return (
-        <InputContainer>
-            <IoSearch />
-            <Input
-                value={search}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>): void => {
-                    setSearch(e.target.value);
-                }}
-            />
-        </InputContainer>
-    );
-};
-
-export default Search;
 
 const InputContainer = styled.label`
     background-color: var(--colors-ui-base);
@@ -49,3 +33,17 @@ const Input = styled.input.attrs({
     background-color: var(--colors-ui-base);
     color: var(--colors-text);
 `;
+
+const Search: FC<SearchProps> = ({ search, setSearch }) => (
+    <InputContainer>
+        <IoSearch />
+        <Input
+            value={search}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>): void => {
+                setSearch(e.target.value);
+            }}
+        />
+    </InputContainer>
+);
+
+export default Search;

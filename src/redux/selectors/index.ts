@@ -4,7 +4,7 @@ import { RootState } from '../store';
 import { IRegion } from '../../interfaces/region.interface';
 import { ITranformedCountry } from '../../interfaces/country.interface';
 
-//all countries
+// all countries
 export const allCountriesSelector = createSelector(
     (state: RootState): ITranformedCountry[] => state.allCountries.countries,
     (state: RootState): string => state.allCountries.search,
@@ -17,11 +17,11 @@ export const allCountriesSelector = createSelector(
             return data.filter(c =>
                 c.name.toLowerCase().includes(search.toLowerCase())
             );
-        } else if (regionVal) {
-            return data.filter(c => c.region.includes(regionVal));
-        } else {
-            return data;
         }
+        if (regionVal) {
+            return data.filter(c => c.region.includes(regionVal));
+        }
+        return data;
     }
 );
 export const allCountriesLoadingStatusSelector = (
@@ -32,7 +32,7 @@ export const allCountriesRegionSelector = (state: RootState): IRegion =>
 export const allCountriesSearchSelector = (state: RootState): string =>
     state.allCountries.search;
 
-//one country
+// one country
 export const oneCountrySelector = (state: RootState) =>
     state.oneCountry.country;
 export const oneCountryLoadingStatusSelector = (

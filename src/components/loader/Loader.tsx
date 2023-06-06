@@ -1,28 +1,5 @@
 import styled from 'styled-components';
 
-const Loader = () => {
-    return (
-        <Wrapper>
-            <div className="lds-spinner">
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-            </div>
-        </Wrapper>
-    );
-};
-
-export default Loader;
-
 const Wrapper = styled.div`
     background-color: var(--loader);
     position: fixed;
@@ -114,3 +91,24 @@ const Wrapper = styled.div`
         }
     }
 `;
+
+const Loader = () => (
+    <Wrapper>
+        <div className="lds-spinner">
+            <div />
+            <div />
+            <div />
+            <div />
+            <div />
+            <div />
+            <div />
+            <div />
+            <div />
+            <div />
+            <div />
+            <div />
+        </div>
+    </Wrapper>
+);
+
+export default Loader;

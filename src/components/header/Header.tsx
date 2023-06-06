@@ -1,10 +1,47 @@
 import { useState, useEffect } from 'react';
-import { Container } from '../container/Container';
 import { IoMoon, IoMoonOutline } from 'react-icons/io5';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import Container from '../container/Container';
 
 type Theme = 'light' | 'dark';
+
+const HeaderEl = styled.header`
+    box-shadow: var(--shadow);
+    background-color: var(--colors-ui-base);
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1;
+`;
+const Wrapper = styled.div`
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 32px 0;
+`;
+const Title = styled(Link).attrs({
+    to: '/',
+    'data-aos': 'fade-right',
+})`
+    color: var(--colors-text);
+    font-size: var(--fs-sm);
+    font-weight: var(--fw-bold);
+    text-decoration: none;
+`;
+const ModeSwitcher = styled.button.attrs({
+    type: 'button',
+    'data-aos': 'fade-left',
+})`
+    color: var(--colors-text);
+    font-size: var(--fs-sm);
+    background-color: var(--colors-ui-base);
+    cursor: pointer;
+    border: none;
+    padding: 0;
+    text-transform: capitalize;
+`;
 
 const Header = () => {
     const [theme, setTheme] = useState<Theme>('light');
@@ -46,40 +83,3 @@ const Header = () => {
 };
 
 export default Header;
-
-const HeaderEl = styled.header`
-    box-shadow: var(--shadow);
-    background-color: var(--colors-ui-base);
-    position: fixed;
-    width: 100%;
-    top: 0;
-    left: 0;
-    z-index: 1;
-`;
-const Wrapper = styled.div`
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 32px 0;
-`;
-const Title = styled(Link).attrs({
-    to: '/',
-    'data-aos': 'fade-right',
-})`
-    color: var(--colors-text);
-    font-size: var(--fs-sm);
-    font-weight: var(--fw-bold);
-    text-decoration: none;
-`;
-const ModeSwitcher = styled.button.attrs({
-    type: 'button',
-    'data-aos': 'fade-left',
-})`
-    color: var(--colors-text);
-    font-size: var(--fs-sm);
-    background-color: var(--colors-ui-base);
-    cursor: pointer;
-    border: none;
-    padding: 0;
-    text-transform: capitalize;
-`;

@@ -1,6 +1,6 @@
 import { Home, NotFound, Details } from '../pages';
 
-export const router = [
+const router = [
     {
         path: '/',
         element: Home,
@@ -14,3 +14,5 @@ export const router = [
         element: NotFound,
     },
 ];
+
+export default router;
