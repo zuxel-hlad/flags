@@ -1,9 +1,5 @@
 import styled from 'styled-components';
-import { FC, ReactPortal, JSX } from 'react';
-
-interface ListProps {
-    children: string | JSX.Element | JSX.Element[] | ReactPortal | undefined;
-}
+import { FC, PropsWithChildren } from 'react';
 
 const Wrapper = styled.section`
     width: 100%;
@@ -28,7 +24,7 @@ const Wrapper = styled.section`
     }
 `;
 
-const List: FC<ListProps> = ({ children }) => {
+const List: FC<PropsWithChildren<unknown>> = ({ children }) => {
     return <Wrapper>{children}</Wrapper>;
 };
 
